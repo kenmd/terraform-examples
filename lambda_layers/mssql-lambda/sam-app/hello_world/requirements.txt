@@ -1,0 +1,3 @@
+requests
+# do not include pyodbc here
+# will use lambda layer instead
