@@ -1,0 +1,28 @@
+version: '2.1'
+services:
+
+  localsfn:
+    image: amazon/aws-stepfunctions-local
+    ports:
+      - "8083:8083"
+    environment:
+      - AWS_DEFAULT_REGION=ap-northeast-1
+      - SNS_ENDPOINT=http://host.docker.internal:4575
+      - SQS_ENDPOINT=http://host.docker.internal:4576
+      - LAMBDA_ENDPOINT=http://host.docker.internal:3001
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4567-4584:4567-4584"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - DEFAULT_REGION=ap-northeast-1
+      - SERVICES=sns,sqs
+      - DEBUG=${DEBUG- }
+      - DATA_DIR=${DATA_DIR- }
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"

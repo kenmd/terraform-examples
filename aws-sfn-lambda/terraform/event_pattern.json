@@ -1,0 +1,13 @@
+{
+  "source": [
+    "aws.states"
+  ],
+  "detail-type": [
+    "Step Functions Execution Status Change"
+  ],
+  "detail": {
+    "stateMachineArn": [
+      "${sfn_arn}"
+    ]
+  }
+}

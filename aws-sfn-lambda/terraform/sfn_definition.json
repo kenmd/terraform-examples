@@ -1,0 +1,45 @@
+{
+  "Comment": "Hello Step Functions",
+  "StartAt": "FirstTask",
+  "States": {
+    "FirstTask": {
+      "Type": "Task",
+      "Parameters": {
+        "command": "run_query",
+        "args": {
+          "query": "SELECT * FROM PERSON"
+        }
+      },
+      "Resource": "${lambda_arn}",
+      "Next": "SELECT NAME FROM PERSON"
+    },
+    "SELECT NAME FROM PERSON": {
+      "Type": "Task",
+      "Parameters": {
+        "command": "run_query",
+        "args": {
+          "query.$": "$$.State.Name"
+        }
+      },
+      "Resource": "${lambda_arn}",
+      "Next": "Send message to SQS"
+    },
+    "Send message to SQS": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
+      "Parameters": {
+        "QueueUrl": "${sqs_url}",
+        "MessageBody": {
+          "Input.$": "$",
+          "TaskToken.$": "$$.Task.Token"
+        }
+      },
+      "Next": "ThirdTask"
+    },
+    "ThirdTask": {
+      "Type": "Pass",
+      "Result": "Hello World!",
+      "End": true
+    }
+  }
+}
