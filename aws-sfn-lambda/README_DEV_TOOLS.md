@@ -74,6 +74,9 @@ pipenv update --outdated    # check
 pipenv update               # execute update
 pipenv update --dev         # execute update dev
 
+# remove unused packages
+pipenv clean
+
 # remove and recreate python virtual env
 pipenv --rm
 pipenv install

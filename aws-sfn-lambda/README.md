@@ -8,7 +8,12 @@
 ```bash
 cd sam-app/
 
+pipenv sync
+pipenv sync --dev
+
 pipenv shell
+pipenv lock --keep-outdated --requirements > ./src/requirements.txt
+
 python -m pytest tests/ -v
 sam build
 ```
