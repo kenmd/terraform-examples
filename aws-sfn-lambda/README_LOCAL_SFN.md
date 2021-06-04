@@ -25,9 +25,13 @@ sam local start-lambda --region ap-northeast-1
 aws lambda invoke \
     --endpoint-url "http://127.0.0.1:3001" \
     --function-name $FUNCTION_NAME \
-    --payload file://events/event.json \
+    --payload fileb://events/event.json \
     --no-verify-ssl \
     /tmp/out.txt
+
+# NOTE: fileb or --cli-binary-format raw-in-base64-out
+# https://stackoverflow.com/questions/60970252/aws-lambda-invoke-with-payload-from-cli
+# https://aws.amazon.com/blogs/developer/best-practices-for-local-file-parameters/
 ```
 
 ### start local sns sqs sfn

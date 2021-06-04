@@ -17,7 +17,7 @@ def lambda_handler(event, context):
             "result": json.dumps(people),
         }
     else:
-        raise Exception("unknown command")
+        raise RuntimeError("unknown command")
 
 
 def run_query(args):

@@ -26,7 +26,7 @@ python -m pytest tests/ -v -s
 python -m pytest tests/ -v --cov=src --cov-report=html -s
 
 # Run
-sam build
+pipenv lock --keep-outdated --requirements > ./hello_world/requirements.txt
 sam local invoke HelloWorldFunction --event events/event.json
 ```
 

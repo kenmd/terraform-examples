@@ -25,6 +25,7 @@ python -m pytest tests/ -v \
 open htmlcov/index.html
 
 # build and run lambda locally
+pipenv lock --keep-outdated --requirements > ./hello_world/requirements.txt
 sam build
 sam local invoke HelloWorldFunction --event events/event.json
 ```
